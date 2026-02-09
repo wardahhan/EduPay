@@ -1,0 +1,100 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Spp;
+use Illuminate\Http\Request;
+
+class SppController extends Controller
+{
+    // ===============================
+    // INDEX (SEARCH + FILTER + PAGINATION)
+    // ===============================
+    public function index(Request $request)
+    {
+        $search  = $request->search;
+        $perPage = $request->perPage ?? 10;
+
+        $spp = Spp::when($search, function ($query) use ($search) {
+                    $query->where('tahun', 'like', "%{$search}%")
+                          ->orWhere('nominal', 'like', "%{$search}%")
+                          ->orWhere('bantuan', 'like', "%{$search}%");
+                })
+                ->orderBy('tahun', 'desc')
+                ->paginate($perPage)
+                ->withQueryString();
+
+        return view('admin.spp-index-dashboard', compact('spp'));
+    }
+
+    // ===============================
+    // CREATE
+    // ===============================
+    public function create()
+    {
+        return view('admin.spp-create-dashboard');
+    }
+
+    // ===============================
+    // STORE
+    // ===============================
+    public function store(Request $request)
+    {
+        $request->validate([
+            'tahun'   => 'required|digits:4',
+            'nominal' => 'required|numeric|min:0',
+            'bantuan' => 'required|string' 
+        ]);
+
+        Spp::create([
+            'tahun'   => $request->tahun,
+            'nominal' => $request->nominal,
+            'bantuan' => $request->bantuan ?? 0,
+        ]);
+
+        return redirect('/admin/spp')
+            ->with('success', '✅ Data SPP berhasil ditambahkan');
+    }
+
+    // ===============================
+    // EDIT
+    // ===============================
+    public function edit($id)
+    {
+        $spp = Spp::findOrFail($id);
+        return view('admin.spp-edit-dashboard', compact('spp'));
+    }
+
+    // ===============================
+    // UPDATE
+    // ===============================
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'tahun'   => 'required|digits:4',
+            'nominal' => 'required|numeric|min:0',
+            'bantuan' => 'required|string'
+        ]);
+
+        $spp = Spp::findOrFail($id);
+        $spp->update([
+            'tahun'   => $request->tahun,
+            'nominal' => $request->nominal,
+            'bantuan' => $request->bantuan ?? 0,
+        ]);
+
+        return redirect('/admin/spp')
+            ->with('success', '✏️ Data SPP berhasil diupdate');
+    }
+
+    // ===============================
+    // DELETE
+    // ===============================
+    public function destroy($id)
+    {
+        Spp::findOrFail($id)->delete();
+
+        return redirect('/admin/spp')
+            ->with('success', '🗑️ Data SPP berhasil dihapus');
+    }
+}
