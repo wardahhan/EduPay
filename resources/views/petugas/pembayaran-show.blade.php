@@ -16,24 +16,24 @@
 
 @section('content')
 
-<div class="max-w-3xl mx-auto mt-10">
+<div class="max-w-3xl mx-auto mt-6 md:mt-10 px-3 md:px-4 lg:px-6">
 
     <!-- CARD -->
     <div class="bg-white rounded-2xl shadow-lg border border-gray-100">
 
         <!-- HEADER -->
-        <div class="px-8 py-5 border-b bg-gray-50 rounded-t-2xl">
-            <h1 class="text-xl font-semibold text-red-700">
+        <div class="px-4 md:px-8 py-4 md:py-5 border-b bg-gray-50 rounded-t-2xl">
+            <h1 class="text-lg md:text-xl font-semibold text-red-700">
                 Detail Pembayaran SPP
             </h1>
-            <p class="text-sm text-gray-500 mt-1">
+            <p class="text-xs md:text-sm text-gray-500 mt-1">
                 Informasi lengkap transaksi pembayaran siswa
             </p>
         </div>
 
         <!-- CONTENT -->
-        <div class="p-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5 text-sm">
+        <div class="p-4 md:p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 md:gap-x-10 gap-y-4 md:gap-y-5 text-sm">
 
                 <div>
                     <p class="text-gray-500">Nama Siswa</p>

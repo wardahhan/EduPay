@@ -32,22 +32,22 @@
 @endsection
 
 
-    <main class="flex-1 ml-64 min-h-screen flex flex-col">
+    <main class="pt-16 md:pt-6 md:ml-64 min-h-screen flex flex-col">
 
-        <header class="bg-white shadow px-8 py-4 flex justify-between items-center">
+        <header class="bg-white shadow px-4 md:px-8 py-3 md:py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4">
             <div>
-                <h2 class="text-xl font-semibold">Dashboard Admin</h2>
-                <p class="text-sm text-gray-500">
+                <h2 class="text-lg md:text-xl font-semibold">Dashboard Admin</h2>
+                <p class="text-xs md:text-sm text-gray-500">
                     Ringkasan aktivitas dan pemasukan SPP
                 </p>
             </div>
 
             <div class="flex items-center gap-3">
                 <div class="text-right">
-                    <p class="text-sm font-semibold">Admin EduPay</p>
+                    <p class="text-xs md:text-sm font-semibold">Admin EduPay</p>
                     <p class="text-xs text-gray-500">Administrator</p>
                 </div>
-                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
                          stroke-width="1.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -59,9 +59,9 @@
             </div>
         </header>
 
-       <section class="p-8 flex-grow">
+       <section class="p-4 md:p-8 flex-grow">
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-10">
 
         <div class="bg-white p-6 rounded-xl shadow flex items-center gap-4">
             <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-blue-100 text-blue-600">

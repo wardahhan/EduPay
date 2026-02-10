@@ -20,13 +20,13 @@
 
 @section('content')
 
-<div class="max-w-6xl mx-auto px-6 py-10">
+<div class="max-w-6xl mx-auto px-3 md:px-4 lg:px-6 py-6 md:py-10">
 
     <!-- HEADER -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
-    <div class="flex items-center gap-3">
-        <h1 class="text-2xl font-bold flex items-center gap-3">
+    <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+        <h1 class="text-xl md:text-2xl font-bold flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
             Data Siswa
         </h1>
 

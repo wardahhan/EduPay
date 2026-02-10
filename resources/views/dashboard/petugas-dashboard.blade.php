@@ -16,21 +16,21 @@
 
 @section('content')
 
-<header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center -mx-6 -mt-6 mb-8 border-b border-gray-100">
+<header class="bg-white shadow-sm px-4 md:px-8 py-3 md:py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 -mx-4 md:-mx-6 -mt-6 md:-mt-6 mb-6 md:mb-8 border-b border-gray-100">
 
     <div class="leading-tight">
-        <h2 class="text-xl font-bold text-gray-800">
+        <h2 class="text-lg md:text-xl font-bold text-gray-800">
             Dashboard Petugas
         </h2>
-        <p class="text-sm text-gray-500">
+        <p class="text-xs md:text-sm text-gray-500">
             {{ now()->translatedFormat('l, d F Y') }}
         </p>
     </div>
 
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-3 sm:gap-4">
 
         <div class="text-right leading-tight">
-            <p class="text-sm font-semibold text-gray-800">
+            <p class="text-xs md:text-sm font-semibold text-gray-800">
                 {{ auth()->user()->petugas->nama_petugas }}
             </p>
             <p class="text-xs text-gray-500">
@@ -39,7 +39,7 @@
         </div>
 
         <div class="w-10 h-10 rounded-full bg-red-600 text-white
-                    flex items-center justify-center font-bold text-sm shadow-sm">
+                    flex items-center justify-center font-bold text-sm shadow-sm flex-shrink-0">
             {{ strtoupper(substr(auth()->user()->petugas->nama_petugas, 0, 1)) }}
         </div>
 
@@ -48,7 +48,7 @@
 
 
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
 
     <div class="bg-white rounded-2xl shadow p-6 flex items-center gap-4">
         <div class="w-14 h-14 rounded-xl bg-red-50 flex items-center justify-center">

@@ -18,10 +18,10 @@
 @section('content')
 
 <!-- HEADER -->
-<div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+<div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
     <div>
-        <div class="flex items-center gap-3">
-            <h1 class="text-2xl font-bold text-red-700">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+            <h1 class="text-xl md:text-2xl font-bold text-red-700">
                 History Pembayaran
             </h1>
             <span class="text-xs bg-red-100 text-red-600 px-3 py-1 rounded-full">

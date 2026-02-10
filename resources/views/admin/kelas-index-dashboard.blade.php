@@ -20,13 +20,13 @@
 
 @section('content')
 
-<div class="max-w-6xl mx-auto py-10 px-4">
+<div class="max-w-6xl mx-auto py-6 md:py-10 px-4">
 
 <!-- HEADER -->
 <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
     <div>
-        <div class="flex items-center gap-3">
-            <h1 class="text-2xl font-bold">Data Kelas</h1>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+            <h1 class="text-xl md:text-2xl font-bold">Data Kelas</h1>
             <span class="text-xs bg-red-100 text-red-600 px-3 py-1 rounded-full">
                 Total {{ count($kelas) }} Data
             </span>

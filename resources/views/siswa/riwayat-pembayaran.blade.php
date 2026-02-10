@@ -17,14 +17,14 @@
 
 @section('content')
 
-<div class="max-w-7xl mx-auto mt-10 px-4">
+<div class="max-w-7xl mx-auto mt-6 md:mt-10 px-4 md:px-6">
 
     <!-- HEADER -->
-    <div class="mb-8">
-        <h1 class="text-2xl font-bold">
+    <div class="mb-6 md:mb-8">
+        <h1 class="text-xl md:text-2xl font-bold">
             Riwayat Pembayaran <span style="color:#c62828;">SPP</span>
         </h1>
-        <p class="text-sm text-gray-500 mt-1">
+        <p class="text-xs md:text-sm text-gray-500 mt-1">
             Daftar seluruh pembayaran SPP yang pernah kamu lakukan
         </p>
     </div>

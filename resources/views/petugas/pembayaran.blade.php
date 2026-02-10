@@ -16,28 +16,28 @@
 
 @section('content')
 
-<div class="max-w-4xl mx-auto mt-10">
+<div class="max-w-4xl mx-auto mt-6 md:mt-10 px-4 md:px-6">
 
     <!-- HEADER -->
-    <div class="mb-8 text-center">
-        <h1 class="text-3xl font-extrabold text-red-700 mb-2">
+    <div class="mb-6 md:mb-8 text-center">
+        <h1 class="text-2xl md:text-3xl font-extrabold text-red-700 mb-2">
             Entri Pembayaran SPP
         </h1>
-        <p class="text-gray-500 text-sm">
+        <p class="text-gray-500 text-xs md:text-sm">
             Petugas mencatat transaksi pembayaran SPP siswa dengan cepat dan akurat
         </p>
     </div>
 
     <!-- FORM -->
-    <div class="bg-white rounded-2xl shadow-lg p-8">
+    <div class="bg-white rounded-2xl shadow-lg p-4 md:p-8">
         <form method="POST" action="{{ route('petugas.pembayaran.store') }}">
             @csrf
 
             <!-- SISWA -->
-            <div class="mb-5">
-                <label class="block text-sm font-semibold mb-1">Siswa</label>
+            <div class="mb-4 md:mb-5">
+                <label class="block text-sm font-semibold mb-2">Siswa</label>
                 <select name="id_siswa" id="id_siswa"
-                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none @error('id_siswa') border-red-500 @enderror">
+                        class="w-full border border-gray-300 rounded-lg px-3 md:px-4 py-2 md:py-2.5 text-sm md:text-base focus:ring-2 focus:ring-red-500 focus:outline-none @error('id_siswa') border-red-500 @enderror">
                     <option value="">-- Pilih Siswa --</option>
                     @foreach($siswa as $s)
                         <option value="{{ $s->id_siswa }}" {{ old('id_siswa') == $s->id_siswa ? 'selected' : '' }}>
@@ -53,10 +53,10 @@
             </div>
 
             <!-- KATEGORI BANTUAN -->
-            <div class="mb-5">
-                <label class="block text-sm font-semibold mb-1">Kategori Bantuan</label>
+            <div class="mb-4 md:mb-5">
+                <label class="block text-sm font-semibold mb-2">Kategori Bantuan</label>
                 <select name="bantuan" id="bantuan"
-                        class="w-full rounded-lg px-4 py-2 border focus:outline-none focus:ring-2
+                        class="w-full rounded-lg px-3 md:px-4 py-2 md:py-2.5 text-sm md:text-base border focus:outline-none focus:ring-2
                                {{ $errors->has('bantuan') ? 'border-red-500 focus:ring-red-300' : 'border-gray-300 focus:ring-red-500' }}">
                     <option value="">-- Pilih Kategori --</option>
                     <option value="Lengkap" {{ old('bantuan') == 'Lengkap' ? 'selected' : '' }}>Lengkap</option>
@@ -70,10 +70,10 @@
             </div>
 
             <!-- SPP DROPDOWN OTOMATIS FILTER -->
-            <div class="mb-5">
-                <label class="block text-sm font-semibold mb-1">Tahun SPP & Nominal</label>
+            <div class="mb-4 md:mb-5">
+                <label class="block text-sm font-semibold mb-2">Tahun SPP & Nominal</label>
                 <select name="id_spp" id="id_spp"
-                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none @error('id_spp') border-red-500 @enderror">
+                        class="w-full border border-gray-300 rounded-lg px-3 md:px-4 py-2 md:py-2.5 text-sm md:text-base focus:ring-2 focus:ring-red-500 focus:outline-none @error('id_spp') border-red-500 @enderror">
                     <option value="">-- Pilih Tahun SPP --</option>
                     @foreach($spp as $sp)
                         <option value="{{ $sp->id_spp }}"
@@ -92,12 +92,12 @@
             </div>
 
             <!-- TANGGAL BAYAR -->
-            <div class="mb-5">
-                <label class="block text-sm font-semibold mb-1">Tanggal Bayar</label>
+            <div class="mb-4 md:mb-5">
+                <label class="block text-sm font-semibold mb-2">Tanggal Bayar</label>
                 <input type="date"
                        name="tanggal_bayar"
                        value="{{ old('tanggal_bayar', date('Y-m-d')) }}"
-                       class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none @error('tanggal_bayar') border-red-500 @enderror">
+                       class="w-full border border-gray-300 rounded-lg px-3 md:px-4 py-2 md:py-2.5 text-sm md:text-base focus:ring-2 focus:ring-red-500 focus:outline-none @error('tanggal_bayar') border-red-500 @enderror">
                 @error('tanggal_bayar')
                     <p class="text-red-600 text-sm mt-1">
                         Perhatian: {{ $message }}. Silakan isi tanggal pembayaran.
@@ -106,7 +106,7 @@
             </div>
 
             <!-- BULAN & TAHUN -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-6">
                 <div>
                     <label class="block text-sm font-semibold mb-1">Bulan Dibayar</label>
                     <select name="bulan_bayar"
@@ -136,7 +136,7 @@
                     <input type="number"
                            name="tahun_bayar"
                            value="{{ old('tahun_bayar', date('Y')) }}"
-                           class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:outline-none @error('tahun_bayar') border-red-500 @enderror">
+                           class="w-full border border-gray-300 rounded-lg px-3 md:px-4 py-2 md:py-2.5 text-sm md:text-base focus:ring-2 focus:ring-red-500 focus:outline-none @error('tahun_bayar') border-red-500 @enderror">
                     @error('tahun_bayar')
                         <p class="text-red-600 text-sm mt-1">
                             Perhatian: {{ $message }}. Silakan isi tahun pembayaran.
@@ -146,14 +146,14 @@
             </div>
 
             <!-- BUTTON -->
-            <div class="flex justify-end gap-3">
+            <div class="flex flex-col sm:flex-row sm:justify-end gap-2 sm:gap-3">
                 <a href="{{ route('petugas.dashboard') }}"
-                   class="px-5 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 transition">
+                   class="px-4 md:px-5 py-2 md:py-2.5 rounded-lg bg-gray-200 hover:bg-gray-300 transition text-sm md:text-base text-center">
                     Batal
                 </a>
 
                 <button type="submit"
-                        class="px-6 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold transition shadow-md hover:shadow-lg">
+                        class="px-4 md:px-6 py-2 md:py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold transition shadow-md hover:shadow-lg text-sm md:text-base">
                     Simpan Pembayaran
                 </button>
             </div>

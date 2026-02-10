@@ -30,23 +30,23 @@
 
 @section('content')
 
-<main class="p-6 md:p-10">
+<main class="p-3 md:p-6 lg:p-10">
 
     <!-- HEADER -->
-    <div class="mb-8">
-        <h1 class="text-2xl font-bold">
+    <div class="mb-6 md:mb-8">
+        <h1 class="text-xl md:text-2xl font-bold">
     Halo,
     <span class="text-primary">
         {{ Auth::user()->siswa->nama }}
     </span>
 </h1>
-        <p class="text-sm text-gray-500">
+        <p class="text-xs md:text-sm text-gray-500">
             Selamat datang di dashboard pembayaran SPP kamu.
         </p>
     </div>
 
     <!-- SUMMARY -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-10">
 
         <!-- Bulan -->
         <div class="bg-white rounded-2xl p-6 shadow-sm">

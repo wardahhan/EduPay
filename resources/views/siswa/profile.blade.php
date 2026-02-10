@@ -16,12 +16,12 @@
 @section('title', 'Profil Siswa')
 
 @section('content')
-<div class="max-w-5xl mx-auto mt-10 px-4">
+<div class="max-w-5xl mx-auto mt-6 md:mt-10 px-3 md:px-4 lg:px-6">
 
     <!-- HEADER -->
-    <div class="mb-8">
-    <div class="flex items-center gap-3">
-        <h1 class="text-2xl font-bold text-gray-800">
+    <div class="mb-6 md:mb-8">
+    <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+        <h1 class="text-xl md:text-2xl font-bold text-gray-800">
             Profil <span class="text-[#c62828]">Siswa</span>
         </h1>
 
@@ -35,7 +35,7 @@
         </span>
     </div>
 
-    <p class="text-sm text-gray-500 mt-1">
+    <p class="text-xs md:text-sm text-gray-500 mt-1">
         Informasi data diri siswa
     </p>
 </div>
@@ -45,14 +45,14 @@
     <div class="bg-white rounded-2xl shadow-sm border border-gray-200">
 
         <!-- HEADER CARD -->
-        <div class="px-6 py-4 border-b bg-gray-50 rounded-t-2xl">
+        <div class="px-4 md:px-6 py-4 border-b bg-gray-50 rounded-t-2xl">
             <h2 class="font-semibold text-gray-700">
                 Data Pribadi
             </h2>
         </div>
 
         <!-- CONTENT -->
-        <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+        <div class="p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-sm">
 
             <!-- NIS -->
             <div>

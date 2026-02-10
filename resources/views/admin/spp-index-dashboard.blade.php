@@ -19,7 +19,7 @@
 
 @section('content')
 
-<div class="max-w-6xl mx-auto py-10 px-4">
+<div class="max-w-6xl mx-auto py-6 md:py-10 px-3 md:px-4 lg:px-6">
 
     <!-- HEADER -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">

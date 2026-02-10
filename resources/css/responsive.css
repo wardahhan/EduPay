@@ -1,0 +1,174 @@
+/* Custom Responsive Utilities for Mobile Optimization */
+
+/* Responsive Typography */
+@media (max-width: 640px) {
+    h1 {
+        @apply text-lg !important;
+    }
+    
+    h2 {
+        @apply text-base !important;
+    }
+    
+    .text-2xl {
+        @apply text-xl !important;
+    }
+    
+    .text-3xl {
+        @apply text-2xl !important;
+    }
+}
+
+/* Responsive Spacing */
+@media (max-width: 640px) {
+    .container {
+        @apply px-3 !important;
+    }
+    
+    .px-6 {
+        @apply px-3 !important;
+    }
+    
+    .px-8 {
+        @apply px-4 !important;
+    }
+    
+    .py-6 {
+        @apply py-3 !important;
+    }
+    
+    .py-8 {
+        @apply py-4 !important;
+    }
+}
+
+/* Responsive Input Fields */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="tel"],
+select,
+textarea {
+    @apply text-base !important; /* Prevent zoom on iOS */
+}
+
+@media (max-width: 640px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="date"],
+    input[type="tel"],
+    select,
+    textarea {
+        @apply px-3 py-2.5 !important;
+    }
+}
+
+/* Responsive Buttons */
+@media (max-width: 640px) {
+    button,
+    .btn,
+    a.btn {
+        @apply min-h-10 px-4 py-2.5 text-sm !important;
+    }
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    table {
+        @apply text-xs !important;
+    }
+    
+    th,
+    td {
+        @apply px-2 py-2 !important;
+    }
+    
+    .action-buttons {
+        @apply flex flex-wrap gap-1 !important;
+    }
+    
+    .action-buttons a,
+    .action-buttons button {
+        @apply p-1.5 !important;
+    }
+    
+    .action-buttons svg {
+        @apply w-4 h-4 !important;
+    }
+}
+
+/* Responsive Card Padding */
+@media (max-width: 640px) {
+    .card,
+    .bg-white.rounded-xl,
+    .bg-white.rounded-2xl {
+        @apply p-3 md:p-4 !important;
+    }
+}
+
+/* Responsive Header */
+@media (max-width: 768px) {
+    header {
+        @apply px-3 md:px-4 py-2 md:py-3 !important;
+    }
+}
+
+/* Mobile Menu Toggle */
+.sidebar-overlay {
+    @apply fixed inset-0 bg-black/40 hidden z-40 md:hidden;
+}
+
+/* Responsive Grid */
+@media (max-width: 640px) {
+    .grid-cols-2 {
+        @apply grid-cols-1 !important;
+    }
+    
+    .grid-cols-3 {
+        @apply grid-cols-1 !important;
+    }
+    
+    .grid-cols-4 {
+        @apply grid-cols-1 sm:grid-cols-2 !important;
+    }
+}
+
+/* Touch-friendly */
+@media (hover: none) {
+    button,
+    a {
+        @apply min-h-10 !important;
+    }
+}
+
+/* Prevent horizontal scrolling on mobile */
+body {
+    overflow-x: hidden;
+}
+
+/* Responsive image */
+img {
+    @apply max-w-full h-auto;
+}
+
+/* Responsive flex direction for mobile */
+@media (max-width: 640px) {
+    .flex-row {
+        @apply flex-col !important;
+    }
+}
+
+/* Print styles for receipt */
+@media print {
+    .no-print {
+        @apply hidden !important;
+    }
+    
+    body {
+        @apply bg-white !important;
+    }
+}

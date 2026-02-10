@@ -38,22 +38,22 @@
 }
 </style>
 
-<div class="print-area max-w-md mx-auto bg-white mt-10
-            rounded-xl shadow border border-gray-200 p-7 text-base">
+<div class="print-area max-w-md mx-auto bg-white mt-6 md:mt-10 px-3 md:px-4
+            rounded-xl shadow border border-gray-200 p-4 md:p-7 text-sm md:text-base">
 
     <!-- HEADER -->
     <div class="text-center mb-5">
-        <h1 class="text-2xl font-extrabold tracking-wide text-red-600">
+        <h1 class="text-xl md:text-2xl font-extrabold tracking-wide text-red-600">
             EDUPAY
         </h1>
 
-        <p class="text-sm text-gray-500 mt-1">
+        <p class="text-xs md:text-sm text-gray-500 mt-1">
             Sistem Pembayaran SPP Sekolah
         </p>
 
         <div class="border-t border-dashed my-4"></div>
 
-        <p class="text-sm text-gray-500">
+        <p class="text-xs md:text-sm text-gray-500">
             {{ \Carbon\Carbon::now('Asia/Jakarta')->translatedFormat('d F Y, H:i') }} WIB
         </p>
     </div>

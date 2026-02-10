@@ -16,13 +16,13 @@
 
 <body class="bg-gray-100 text-gray-800">
 
-<div class="min-h-screen flex items-center justify-center px-4">
+<div class="min-h-screen flex items-center justify-center px-3 md:px-4 py-6 md:py-8">
 
-    <div class="w-full max-w-lg bg-white rounded-xl shadow-lg p-8">
+    <div class="w-full max-w-lg bg-white rounded-xl shadow-lg p-4 md:p-8">
 
         <!-- HEADER -->
         <div class="mb-6">
-            <h1 class="text-2xl font-bold flex items-center gap-2">
+            <h1 class="text-xl md:text-2xl font-bold flex items-center gap-2">
                 Tambah Data Kelas
             </h1>
             <p class="text-sm text-gray-500 mt-1">

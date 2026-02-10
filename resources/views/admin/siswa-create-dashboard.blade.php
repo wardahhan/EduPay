@@ -15,14 +15,14 @@
 
 @section('content')
 
-<div class="min-h-screen bg-gray-100 py-10 px-6 flex justify-center">
+<div class="min-h-screen bg-gray-100 py-6 md:py-10 px-3 md:px-6 flex justify-center">
 
-    <div class="w-full max-w-5xl">
+    <div class="w-full max-w-4xl md:max-w-5xl">
 
         <!-- HEADER -->
-        <div class="flex items-center justify-between mb-8">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
             <div>
-                <h1 class="text-2xl font-bold text-red-700 flex items-center gap-2">
+                <h1 class="text-xl md:text-2xl font-bold text-red-700 flex items-center gap-2">
                     Tambah Data Siswa
                 </h1>
                 <p class="text-sm text-gray-500 mt-1">
@@ -32,7 +32,7 @@
 
             <a href="/admin/siswa"
                class="bg-gray-200 hover:bg-gray-300 text-gray-700
-                      px-4 py-2 rounded-lg font-medium">
+                      px-4 py-2 rounded-lg font-medium mt-4 sm:mt-0">
                 ← Kembali
             </a>
         </div>
@@ -40,7 +40,7 @@
         <!-- CARD -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100">
 
-            <form method="POST" action="/admin/siswa" class="p-8 space-y-10">
+            <form method="POST" action="/admin/siswa" class="p-4 md:p-8 space-y-8 md:space-y-10">
                 @csrf
 
                 <!-- SECTION: IDENTITAS -->

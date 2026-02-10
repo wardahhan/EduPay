@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>@yield('title', 'Admin | EduPay')</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Responsive CSS -->
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
 </head>
 
 <body class="bg-gray-100 text-gray-800">
