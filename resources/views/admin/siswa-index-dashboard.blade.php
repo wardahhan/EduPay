@@ -100,7 +100,7 @@
         <table class="min-w-full text-sm">
             <thead class="bg-gray-50 text-gray-600 uppercase text-xs">
                 <tr>
-                    <th class="px-6 py-4 text-left">NIS / NISN</th>
+                    <th class="px-6 py-4 text-left">NIS</th>
                     <th class="px-6 py-4 text-left">Nama</th>
                     <th class="px-6 py-4 text-left">Kelas</th>
                     <th class="px-6 py-4 text-left">Bantuan</th>

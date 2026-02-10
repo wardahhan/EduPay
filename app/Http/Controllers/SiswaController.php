@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 class SiswaController extends Controller
 {
     // ===============================
-    // INDEX (SEARCH + FILTER + PAGINATION)
+    // INDEX
     // ===============================
     public function index(Request $request)
     {
@@ -49,13 +49,20 @@ class SiswaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nis'      => 'required|unique:siswa,nis',
+            'nis'      => 'required|digits:8|unique:siswa,nis',
             'nama'     => 'required|string|max:100',
             'alamat'   => 'required|string',
-            'no_telp'  => 'required|string|max:20',
+            'no_telp'  => 'required|digits_between:10,12',
             'id_kelas' => 'required|exists:kelas,id_kelas',
             'id_spp'   => 'required|exists:spp,id_spp',
             'bantuan'  => 'required|string|max:30',
+        ], [
+            'nis.required'      => 'NIS wajib diisi',
+            'nis.digits'        => 'NIS harus 8 angka',
+            'nis.unique'        => 'NIS sudah terdaftar',
+            'no_telp.required' => 'Nomor telepon wajib diisi',
+            'no_telp.digits_between' =>
+                'Nomor telepon harus 10–12 digit angka',
         ]);
 
         // BUAT USER LOGIN SISWA
@@ -73,7 +80,7 @@ class SiswaController extends Controller
             'no_telp'  => $request->no_telp,
             'id_kelas' => $request->id_kelas,
             'id_spp'   => $request->id_spp,
-            'bantuan'  => $request->bantuan, 
+            'bantuan'  => $request->bantuan,
             'id_user'  => $user->id_user,
         ]);
 
@@ -82,55 +89,36 @@ class SiswaController extends Controller
     }
 
     // ===============================
-    // SHOW
-    // ===============================
-    public function show($id)
-    {
-        $siswa = Siswa::with(['kelas', 'spp', 'pembayaran'])->findOrFail($id);
-
-        return view('admin.siswa-show', compact('siswa'));
-    }
-
-    // ===============================
-    // EDIT
-    // ===============================
-    public function edit($id)
-    {
-        $siswa = Siswa::findOrFail($id);
-        $kelas = Kelas::orderBy('nama_kelas')->get();
-        $spp   = Spp::orderBy('tahun', 'desc')->get();
-
-        return view('admin.siswa-edit-dashboard', compact('siswa', 'kelas', 'spp'));
-    }
-
-    // ===============================
     // UPDATE
     // ===============================
     public function update(Request $request, $id)
-{
-    $request->validate([
-        'nama'     => 'required|string|max:100',
-        'alamat'   => 'required|string',
-        'no_telp'  => 'required|string|max:20',
-        'id_kelas' => 'required|exists:kelas,id_kelas',
-        'id_spp'   => 'required|exists:spp,id_spp',
-        'bantuan'  => 'required|string|max:30',
-    ]);
+    {
+        $request->validate([
+            'nama'     => 'required|string|max:100',
+            'alamat'   => 'required|string',
+            'no_telp'  => 'required|digits_between:10,12',
+            'id_kelas' => 'required|exists:kelas,id_kelas',
+            'id_spp'   => 'required|exists:spp,id_spp',
+            'bantuan'  => 'required|string|max:30',
+        ], [
+            'no_telp.digits_between' =>
+                'Nomor telepon harus 10–12 digit angka',
+        ]);
 
-    $siswa = Siswa::findOrFail($id);
+        $siswa = Siswa::findOrFail($id);
 
-    $siswa->update([
-        'nama'     => $request->nama,
-        'alamat'   => $request->alamat,
-        'no_telp'  => $request->no_telp,
-        'id_kelas' => $request->id_kelas,
-        'id_spp'   => $request->id_spp,
-        'bantuan'  => $request->bantuan,
-    ]);
+        $siswa->update([
+            'nama'     => $request->nama,
+            'alamat'   => $request->alamat,
+            'no_telp'  => $request->no_telp,
+            'id_kelas' => $request->id_kelas,
+            'id_spp'   => $request->id_spp,
+            'bantuan'  => $request->bantuan,
+        ]);
 
-    return redirect('/admin/siswa')
-        ->with('success', '✏️ Data siswa berhasil diperbarui');
-}
+        return redirect('/admin/siswa')
+            ->with('success', '✏️ Data siswa berhasil diperbarui');
+    }
 
     // ===============================
     // DELETE
@@ -139,7 +127,6 @@ class SiswaController extends Controller
     {
         $siswa = Siswa::findOrFail($id);
 
-        // HAPUS USER LOGIN SISWA
         if ($siswa->id_user) {
             User::where('id_user', $siswa->id_user)->delete();
         }

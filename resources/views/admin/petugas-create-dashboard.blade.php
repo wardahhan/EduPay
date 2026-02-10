@@ -67,65 +67,108 @@
             </div>
 
             <!-- NO TELP -->
-            <div class="mb-6">
-                <label class="block text-sm font-semibold mb-1">
-                    Nomor Telepon
-                </label>
+<div class="mb-6">
+    <label class="block text-sm font-semibold mb-1">
+        Nomor Telepon
+    </label>
 
-                <input type="text"
-                       name="no_telp"
-                       value="{{ old('no_telp') }}"
-                       placeholder="08xxxxxxxxxx"
-                       class="w-full px-4 py-3 rounded-xl border
-                              focus:outline-none focus:ring-2 focus:ring-red-300">
-            </div>
+    <input type="text"
+           name="no_telp"
+           value="{{ old('no_telp') }}"
+           placeholder="08xxxxxxxxxx"
+           class="w-full px-4 py-3 rounded-xl border
+                  focus:outline-none focus:ring-2
+                  {{ $errors->has('no_telp')
+                      ? 'border-red-500 focus:ring-red-200'
+                      : 'focus:ring-red-300' }}">
+
+    @error('no_telp')
+        <p class="text-xs text-red-600 mt-1 ml-1">
+            {{ $message }}
+        </p>
+    @enderror
+</div>
 
             <!-- USERNAME -->
-            <div class="mb-6">
-                <label class="block text-sm font-semibold mb-1">
-                    Username
-                </label>
+<div class="mb-6">
+    <label class="block text-sm font-semibold mb-1">
+        Username
+    </label>
 
-                <input type="text"
-                       name="username"
-                       value="{{ old('username') }}"
-                       placeholder="username login"
-                       class="w-full px-4 py-3 rounded-xl border
-                              focus:outline-none focus:ring-2 focus:ring-red-300">
-            </div>
+    <input type="text"
+           name="username"
+           value="{{ old('username') }}"
+           placeholder="username login"
+           class="w-full px-4 py-3 rounded-xl border
+                  focus:outline-none focus:ring-2
+                  {{ $errors->has('username')
+                      ? 'border-red-500 focus:ring-red-200'
+                      : 'focus:ring-red-300' }}">
 
-            <!-- PASSWORD & LEVEL -->
-            <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+    @error('username')
+        <p class="text-xs text-red-600 mt-1 ml-1">
+            Username sudah digunakan
+        </p>
+    @enderror
+</div>
 
-                <!-- LEVEL -->
-                <div>
-                    <label class="block text-sm font-semibold mb-1">
-                        Level Akses
-                    </label>
 
-                    <select name="level"
-                            class="w-full px-4 py-3 rounded-xl border
-                                   focus:outline-none focus:ring-2 focus:ring-red-300">
-                        <option value="">-- Pilih Level --</option>
-                        <option value="petugas">Petugas</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                </div>
+<!-- LEVEL & PASSWORD -->
+<div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                <!-- PASSWORD -->
-                <div>
-                    <label class="block text-sm font-semibold mb-1">
-                        Password
-                    </label>
+    <!-- LEVEL -->
+    <div>
+        <label class="block text-sm font-semibold mb-1">
+            Level Akses
+        </label>
 
-                    <input type="password"
-                           name="password"
-                           placeholder="Password login"
-                           class="w-full px-4 py-3 rounded-xl border
-                                  focus:outline-none focus:ring-2 focus:ring-red-300">
-                </div>
+        <select name="level"
+                class="w-full px-4 py-3 rounded-xl border
+                       focus:outline-none focus:ring-2
+                       {{ $errors->has('level')
+                           ? 'border-red-500 focus:ring-red-200'
+                           : 'focus:ring-red-300' }}">
+            <option value="">-- Pilih Level --</option>
+            <option value="petugas" {{ old('level') == 'petugas' ? 'selected' : '' }}>
+                Petugas
+            </option>
+            <option value="admin" {{ old('level') == 'admin' ? 'selected' : '' }}>
+                Admin
+            </option>
+        </select>
 
-            </div>
+        @error('level')
+            <p class="text-xs text-red-600 mt-1 ml-1">
+                Level wajib dipilih
+            </p>
+        @enderror
+    </div>
+
+    <!-- PASSWORD -->
+    <div>
+        <label class="block text-sm font-semibold mb-1">
+            Password
+        </label>
+
+        <input type="password"
+               name="password"
+               placeholder="Password login"
+               class="w-full px-4 py-3 rounded-xl border
+                      focus:outline-none focus:ring-2
+                      {{ $errors->has('password')
+                          ? 'border-red-500 focus:ring-red-200'
+                          : 'focus:ring-red-300' }}">
+
+        @error('password')
+            <p class="text-xs text-red-600 mt-1 ml-1">
+                Password minimal 6 karakter
+            </p>
+        @enderror
+    </div>
+
+</div>
+
+
 
             <!-- ACTION -->
             <div class="flex justify-end gap-3">

@@ -52,19 +52,25 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                         <div>
-                            <label class="text-sm text-gray-600">NIS / NISN</label>
-                            <input type="text" name="nis"
+                            <label class="text-sm text-gray-600">NIS</label>
+                            <input type="text" name="nis" id="nis"
                                 value="{{ old('nis') }}"
+                                maxlength="8"
+                                pattern="[0-9]{1,8}"
+                                oninput="validateNIS(this)"
                                 class="w-full mt-1 rounded-lg px-4 py-2.5 border
                                     focus:ring-2 focus:ring-red-300
                                     @error('nis') border-red-500 @enderror">
 
+                            <p id="nis-error" class="hidden text-xs text-red-600 mt-1 ml-1">
+                                NIS maksimal 8 angka
+                            </p>
+
                             @error('nis')
                                 <p class="text-xs text-red-600 mt-1 ml-1">
-                                    NIS / NISN wajib diisi
+                                    {{ $message }}
                                 </p>
                             @enderror
-
                         </div>
 
                         <div>
@@ -137,35 +143,32 @@
                 </div>
 
                 <!-- SECTION: BANTUAN & SPP -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="text-sm text-gray-600">Kategori Bantuan</label>
+                        <select id="bantuan" name="bantuan"
+                            class="w-full mt-1 rounded-lg px-4 py-2.5 border focus:ring-2 focus:ring-red-300">
+                            <option value="">Pilih kategori</option>
+                            <option value="Lengkap">Lengkap</option>
+                            <option value="Kurang Mampu">Kurang Mampu</option>
+                            <option value="KIP">KIP</option>
+                            <option value="Yatim / Piatu">Yatim / Piatu</option>
+                        </select>
+                    </div>
 
-<!-- KATEGORI BANTUAN -->
-<div>
-    <label class="text-sm text-gray-600">Kategori Bantuan</label>
-    <select id="bantuan" name="bantuan"
-        class="w-full mt-1 rounded-lg px-4 py-2.5 border focus:ring-2 focus:ring-red-300">
-        <option value="">Pilih kategori</option>
-        <option value="Lengkap">Lengkap</option>
-        <option value="Kurang Mampu">Kurang Mampu</option>
-        <option value="KIP">KIP</option>
-        <option value="Yatim / Piatu">Yatim / Piatu</option>
-    </select>
-</div>
-
-<!-- SPP -->
-<div>
-    <label class="text-sm text-gray-600">SPP</label>
-    <select id="spp" name="id_spp"
-        class="w-full mt-1 rounded-lg px-4 py-2.5 border focus:ring-2 focus:ring-red-300">
-        <option value="">Pilih SPP</option>
-        @foreach($spp as $s)
-            <option value="{{ $s->id_spp }}" data-bantuan="{{ $s->bantuan }}">
-                {{ $s->tahun }} - Rp {{ number_format($s->nominal,0,',','.') }} ({{ $s->bantuan }})
-            </option>
-        @endforeach
-    </select>
-</div>
-</div>
+                    <div>
+                        <label class="text-sm text-gray-600">SPP</label>
+                        <select id="spp" name="id_spp"
+                            class="w-full mt-1 rounded-lg px-4 py-2.5 border focus:ring-2 focus:ring-red-300">
+                            <option value="">Pilih SPP</option>
+                            @foreach($spp as $s)
+                                <option value="{{ $s->id_spp }}" data-bantuan="{{ $s->bantuan }}">
+                                    {{ $s->tahun }} - Rp {{ number_format($s->nominal,0,',','.') }} ({{ $s->bantuan }})
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
 
                 <!-- ACTION -->
                 <div class="flex justify-end gap-3 pt-6 border-t">
@@ -190,43 +193,21 @@
     </div>
 </div>
 
+<!-- ✅ SCRIPT VALIDASI NIS -->
 <script>
-const bantuanSelect = document.getElementById('bantuan');
-const sppSelect = document.getElementById('spp');
+function validateNIS(input) {
+    const errorText = document.getElementById('nis-error');
 
-function filterAndSelectSPP() {
-    const selectedBantuan = bantuanSelect.value;
-    let found = false;
+    input.value = input.value.replace(/\D/g, '');
 
-    Array.from(sppSelect.options).forEach(option => {
-        if(option.value === "") return; // skip placeholder
-        if(option.dataset.bantuan === selectedBantuan) {
-            option.style.display = 'block';
-            if(!found) {
-                // otomatis pilih opsi pertama yang sesuai
-                option.selected = true;
-                found = true;
-            }
-        } else {
-            option.style.display = 'none';
-            option.selected = false;
-        }
-    });
-
-    if(!found) {
-        // jika tidak ada SPP yang sesuai, pilih placeholder
-        sppSelect.value = "";
+    if (input.value.length > 8) {
+        errorText.classList.remove('hidden');
+        input.value = input.value.slice(0, 8);
+    } else {
+        errorText.classList.add('hidden');
     }
 }
-
-// jalankan saat kategori bantuan berubah
-bantuanSelect.addEventListener('change', filterAndSelectSPP);
-
-// optional: panggil saat page load
-filterAndSelectSPP();
 </script>
-
-
 
 @endsection
 

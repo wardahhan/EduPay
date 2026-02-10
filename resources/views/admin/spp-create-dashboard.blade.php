@@ -24,11 +24,11 @@
         <!-- HEADER -->
         <div class="mb-6 flex items-center justify-between">
             <div>
-                <h1 class="text-2xl font-bold text-red-700 flex items-center gap-2">
+                <h1 class="text-2xl font-bold text-red-700">
                     Tambah Data SPP
                 </h1>
                 <p class="text-sm text-gray-500">
-                    Masukkan tahun dan nominal SPP baru
+                    Masukkan tahun, nominal, dan kategori bantuan
                 </p>
             </div>
 
@@ -41,6 +41,14 @@
 
         <!-- CARD -->
         <div class="bg-white rounded-2xl shadow p-8">
+
+            <!-- 🔴 ERROR DUPLIKAT GLOBAL -->
+            @if ($errors->has('nominal'))
+                <div class="mb-5 bg-red-100 border border-red-300
+                            text-red-700 px-4 py-3 rounded-lg text-sm">
+                    {{ $errors->first('nominal') }}
+                </div>
+            @endif
 
             <form method="POST" action="/admin/spp">
                 @csrf
@@ -56,22 +64,20 @@
                            value="{{ old('tahun') }}"
                            placeholder="Contoh: 2026"
                            class="w-full rounded-xl px-4 py-3 border
-                           focus:outline-none
-                           focus:ring-2
-                           {{ $errors->has('tahun')
+                           focus:outline-none focus:ring-2
+                           {{ $errors->has('tahun') || $errors->has('nominal')
                                ? 'border-red-500 focus:ring-red-300'
-                               : 'border-gray-300 focus:ring-red-300' }}"
-                           >
+                               : 'border-gray-300 focus:ring-red-300' }}">
 
                     @error('tahun')
                         <p class="text-xs text-red-600 mt-1 ml-1">
-                            Tahun SPP wajib diisi
+                            {{ $message }}
                         </p>
                     @enderror
                 </div>
 
                 <!-- NOMINAL -->
-                <div class="mb-8">
+                <div class="mb-6">
                     <label class="block text-sm font-semibold mb-2">
                         Nominal SPP
                     </label>
@@ -81,16 +87,14 @@
                            value="{{ old('nominal') }}"
                            placeholder="Contoh: 150000"
                            class="w-full rounded-xl px-4 py-3 border
-                           focus:outline-none
-                           focus:ring-2
+                           focus:outline-none focus:ring-2
                            {{ $errors->has('nominal')
                                ? 'border-red-500 focus:ring-red-300'
-                               : 'border-gray-300 focus:ring-red-300' }}"
-                           >
+                               : 'border-gray-300 focus:ring-red-300' }}">
 
                     @error('nominal')
                         <p class="text-xs text-red-600 mt-1 ml-1">
-                            Nominal SPP wajib diisi
+                            {{ $message }}
                         </p>
                     @enderror
 
@@ -100,36 +104,35 @@
                 </div>
 
                 <!-- KATEGORI BANTUAN -->
-<div class="mb-6">
-    <label class="block text-sm font-semibold mb-2">
-        Kategori Bantuan
-    </label>
+                <div class="mb-8">
+                    <label class="block text-sm font-semibold mb-2">
+                        Kategori Bantuan
+                    </label>
 
-    <select name="bantuan"
-        class="w-full rounded-xl px-4 py-3 border
-               focus:outline-none focus:ring-2
-               {{ $errors->has('bantuan')
-                    ? 'border-red-500 focus:ring-red-300'
-                    : 'border-gray-300 focus:ring-red-300' }}">
-        <option value="">-- Pilih Kategori --</option>
-        <option value="Lengkap" {{ old('bantuan') == 'Lengkap' ? 'selected' : '' }}>Lengkap</option>
-        <option value="Kurang Mampu" {{ old('bantuan') == 'Kurang Mampu' ? 'selected' : '' }}>Kurang Mampu</option>
-        <option value="KIP" {{ old('bantuan') == 'KIP' ? 'selected' : '' }}>KIP</option>
-        <option value="Yatim / Piatu" {{ old('bantuan') == 'Yatim / Piatu' ? 'selected' : '' }}>Yatim / Piatu</option>
-    </select>
+                    <select name="bantuan"
+                        class="w-full rounded-xl px-4 py-3 border
+                               focus:outline-none focus:ring-2
+                               {{ $errors->has('bantuan') || $errors->has('nominal')
+                                    ? 'border-red-500 focus:ring-red-300'
+                                    : 'border-gray-300 focus:ring-red-300' }}">
+                        <option value="">-- Pilih Kategori --</option>
+                        <option value="Lengkap" {{ old('bantuan') == 'Lengkap' ? 'selected' : '' }}>Lengkap</option>
+                        <option value="Kurang Mampu" {{ old('bantuan') == 'Kurang Mampu' ? 'selected' : '' }}>Kurang Mampu</option>
+                        <option value="KIP" {{ old('bantuan') == 'KIP' ? 'selected' : '' }}>KIP</option>
+                        <option value="Yatim / Piatu" {{ old('bantuan') == 'Yatim / Piatu' ? 'selected' : '' }}>Yatim / Piatu</option>
+                    </select>
 
-    @error('bantuan')
-        <p class="text-xs text-red-600 mt-1 ml-1">
-            Kategori wajib dipilih
-        </p>
-    @enderror
-</div>
+                    @error('bantuan')
+                        <p class="text-xs text-red-600 mt-1 ml-1">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
 
                 <!-- ACTION -->
                 <div class="flex justify-end gap-3">
                     <a href="/admin/spp"
-                       class="px-5 py-2 rounded-lg bg-gray-300
-                              hover:bg-gray-400 font-medium">
+                       class="px-5 py-2 rounded-lg bg-gray-300 hover:bg-gray-400 font-medium">
                         Batal
                     </a>
 

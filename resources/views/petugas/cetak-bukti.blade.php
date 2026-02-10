@@ -15,26 +15,53 @@
 
 <style>
 @media print {
-    body {
-        background: white !important;
-    }
 
-    aside, nav, header, footer, .no-print {
-        display: none !important;
-    }
+  @page {
+      size: A4 portrait;
+      margin: 0;
+  }
 
-    main {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
+  html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: white !important;
+      overflow: hidden !important; /* 🔥 KUNCI */
+  }
 
-    .print-area {
-        box-shadow: none !important;
-        border: none !important;
-        margin: 0 auto !important;
-        width: 100% !important;
-        max-width: 380px !important; /* STRUK LEBIH BESAR */
-    }
+  /* SEMBUNYIKAN LAYOUT */
+  aside, nav, header, footer, .no-print {
+      display: none !important;
+  }
+
+  /* CENTER HALAMAN */
+  body {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important; /* 🔥 BUKAN padding-top */
+  }
+
+  main {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: auto !important;
+      height: auto !important;
+  }
+
+  /* STRUK */
+  .print-area {
+      width: 420px !important;
+      max-width: 420px !important;
+      padding: 20px !important;
+
+      border: 1px solid #e5e7eb !important;
+      border-radius: 12px !important;
+      box-shadow: none !important;
+
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+  }
 }
 </style>
 
@@ -96,26 +123,24 @@
 
     <!-- TOTAL -->
     <div class="flex justify-between items-center font-bold text-lg">
-    <span>Total Bayar</span>
-    <span class="text-green-600">
-        Rp {{ number_format($pembayaran->jumlah_bayar, 0, ',', '.') }}
-    </span>
-</div>
-
+        <span>Total Bayar</span>
+        <span class="text-green-600">
+            Rp {{ number_format($pembayaran->jumlah_bayar, 0, ',', '.') }}
+        </span>
+    </div>
 
     <div class="border-t border-dashed my-4"></div>
 
     <!-- FOOTER -->
     <div class="text-center text-xs text-gray-500 leading-relaxed">
-    <p class="font-semibold text-green-600 tracking-wide">
-        *** PEMBAYARAN LUNAS ***
-    </p>
-    <p class="mt-2">
-        Bukti ini sah tanpa tanda tangan.<br>
-        Simpan struk sebagai arsip.
-    </p>
-</div>
-
+        <p class="font-semibold text-green-600 tracking-wide">
+            *** PEMBAYARAN LUNAS ***
+        </p>
+        <p class="mt-2">
+            Bukti ini sah tanpa tanda tangan.<br>
+            Simpan struk sebagai arsip.
+        </p>
+    </div>
 
     <!-- BUTTON -->
     <div class="flex justify-center gap-4 mt-7 no-print">
@@ -133,9 +158,6 @@
     </div>
 </div>
 
-
 @endsection
-
-
 </body>
 </html>

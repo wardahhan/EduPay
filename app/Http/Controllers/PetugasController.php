@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class PetugasController extends Controller
 {
     // ===============================
-    // INDEX (SEARCH + PAGINATION + RELASI USER)
+    // INDEX
     // ===============================
     public function index(Request $request)
     {
@@ -40,14 +40,14 @@ class PetugasController extends Controller
         return view('admin.petugas-create-dashboard');
     }
 
+    // ===============================
     // SHOW
-
+    // ===============================
     public function show($id)
-{
-    $petugas = Petugas::findOrFail($id);
-
-    return view('admin.petugas-show', compact('petugas'));
-}
+    {
+        $petugas = Petugas::findOrFail($id);
+        return view('admin.petugas-show', compact('petugas'));
+    }
 
     // ===============================
     // STORE
@@ -56,31 +56,33 @@ class PetugasController extends Controller
     {
         $request->validate([
             'nama_petugas' => 'required|string|max:100',
-            'no_telp'      => 'required|string|max:20',
+            'no_telp'      => 'required|digits_between:10,12',
             'username'     => 'required|unique:users,username',
-            'password'     => 'required|min:6'
+            'password'     => 'required|min:6',
+        ], [
+            'no_telp.required' => 'Nomor telepon wajib diisi',
+            'no_telp.digits_between' =>
+                'Nomor telepon harus 10–12 digit angka',
         ]);
 
-        // 1️⃣ BUAT USER LOGIN
+        // BUAT USER LOGIN
         $user = User::create([
             'username' => $request->username,
             'password' => Hash::make($request->password),
-            'role'     => 'petugas'
+            'role'     => 'petugas',
         ]);
 
-        // 2️⃣ BUAT DATA PETUGAS
+        // BUAT DATA PETUGAS
         Petugas::create([
             'nama_petugas' => $request->nama_petugas,
             'no_telp'      => $request->no_telp,
             'level'        => 'petugas',
-            'id_user'      => $user->id_user
+            'id_user'      => $user->id_user,
         ]);
 
         return redirect('/admin/petugas')
             ->with('success', '✅ Data petugas berhasil ditambahkan');
     }
-
-
 
     // ===============================
     // EDIT
@@ -100,15 +102,18 @@ class PetugasController extends Controller
 
         $request->validate([
             'nama_petugas' => 'required|string|max:100',
-            'no_telp'      => 'required|string|max:20',
+            'no_telp'      => 'required|digits_between:10,12',
             'username'     => 'required|unique:users,username,' . $petugas->id_user . ',id_user',
-            'password'     => 'nullable|min:6'
+            'password'     => 'nullable|min:6',
+        ], [
+            'no_telp.digits_between' =>
+                'Nomor telepon harus 10–12 digit angka',
         ]);
 
         // UPDATE PETUGAS
         $petugas->update([
             'nama_petugas' => $request->nama_petugas,
-            'no_telp'      => $request->no_telp
+            'no_telp'      => $request->no_telp,
         ]);
 
         // UPDATE USER
@@ -131,7 +136,6 @@ class PetugasController extends Controller
     {
         $petugas = Petugas::findOrFail($id);
 
-        // HAPUS USER LOGIN (CASCADE AMAN)
         if ($petugas->id_user) {
             User::where('id_user', $petugas->id_user)->delete();
         }
@@ -143,7 +147,7 @@ class PetugasController extends Controller
     }
 
     // ===============================
-    // HALAMAN PEMBAYARAN PETUGAS
+    // PEMBAYARAN PETUGAS
     // ===============================
     public function pembayaran()
     {

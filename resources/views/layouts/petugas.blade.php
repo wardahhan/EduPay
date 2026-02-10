@@ -105,7 +105,7 @@
             <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2"
                  viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round"
-<svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2"
+                 <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2"
                  viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round"
                       d="M17 16l4-4m0 0l-4-4m4 4H7"/>

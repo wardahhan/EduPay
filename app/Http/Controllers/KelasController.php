@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class KelasController extends Controller
 {
     // ===============================
-    // TAMPILKAN DATA KELAS (SEARCH + FILTER + PAGINATION)
+    // TAMPILKAN DATA KELAS
     // ===============================
     public function index(Request $request)
     {
@@ -40,8 +41,26 @@ class KelasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_kelas' => 'required|string|max:50',
-            'kompetensi_keahlian' => 'required|string|max:100',
+            'nama_kelas' => [
+                'required',
+                'string',
+                'max:50',
+                'regex:/^[^-]+$/', // ❌ tidak boleh ada "-"
+            ],
+            'kompetensi_keahlian' => [
+                'required',
+                'string',
+                'max:100',
+                Rule::unique('kelas')->where(function ($query) use ($request) {
+                    return $query->where('nama_kelas', $request->nama_kelas);
+                }),
+            ],
+        ], [
+            'nama_kelas.required' => 'Nama kelas wajib diisi',
+            'nama_kelas.regex' => 'Nama kelas tidak boleh mengandung tanda "-"',
+            'kompetensi_keahlian.required' => 'Kompetensi keahlian wajib diisi',
+            'kompetensi_keahlian.unique' =>
+                'Kelas dengan kompetensi tersebut sudah terdaftar',
         ]);
 
         Kelas::create([
@@ -67,12 +86,33 @@ class KelasController extends Controller
     // ===============================
     public function update(Request $request, $id)
     {
+        $kelas = Kelas::findOrFail($id);
+
         $request->validate([
-            'nama_kelas' => 'required|string|max:50',
-            'kompetensi_keahlian' => 'required|string|max:100',
+            'nama_kelas' => [
+                'required',
+                'string',
+                'max:50',
+                'regex:/^[^-]+$/', // ❌ tetap dikunci saat update
+            ],
+            'kompetensi_keahlian' => [
+                'required',
+                'string',
+                'max:100',
+                Rule::unique('kelas')
+                    ->where(function ($query) use ($request) {
+                        return $query->where('nama_kelas', $request->nama_kelas);
+                    })
+                    ->ignore($kelas->id),
+            ],
+        ], [
+            'nama_kelas.required' => 'Nama kelas wajib diisi',
+            'nama_kelas.regex' => 'Nama kelas tidak boleh mengandung tanda "-"',
+            'kompetensi_keahlian.required' => 'Kompetensi keahlian wajib diisi',
+            'kompetensi_keahlian.unique' =>
+                'Kelas dengan kompetensi tersebut sudah terdaftar',
         ]);
 
-        $kelas = Kelas::findOrFail($id);
         $kelas->update([
             'nama_kelas' => $request->nama_kelas,
             'kompetensi_keahlian' => $request->kompetensi_keahlian,

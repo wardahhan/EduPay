@@ -56,7 +56,7 @@
 
             <!-- NIS -->
             <div>
-                <p class="text-gray-500 mb-1">NIS / NISN</p>
+                <p class="text-gray-500 mb-1">NIS</p>
                 <p class="font-semibold text-gray-800">
                     {{ $siswa->nis }}
                 </p>

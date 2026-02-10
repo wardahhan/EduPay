@@ -31,8 +31,7 @@
 
 @endsection
 
-
-    <main class="pt-16 md:pt-6 md:ml-64 min-h-screen flex flex-col">
+    <main class="pt-16 md:pt-0 md:ml-64 min-h-screen flex flex-col">
 
         <header class="bg-white shadow px-4 md:px-8 py-3 md:py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4">
             <div>

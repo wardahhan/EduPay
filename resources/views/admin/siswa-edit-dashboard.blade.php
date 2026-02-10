@@ -38,7 +38,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- NIS -->
                         <div>
-                            <label class="text-sm font-medium">NIS / NISN</label>
+                            <label class="text-sm font-medium">NIS</label>
                             <input type="text" value="{{ $siswa->nis }}" readonly
                                 class="w-full mt-1 rounded-lg px-4 py-2.5 border bg-gray-100 text-gray-600 cursor-not-allowed">
                             <p class="text-xs text-gray-500 mt-1">Tidak dapat diubah</p>

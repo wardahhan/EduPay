@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class SppController extends Controller
 {
     // ===============================
-    // INDEX (SEARCH + FILTER + PAGINATION)
+    // INDEX
     // ===============================
     public function index(Request $request)
     {
@@ -39,22 +39,42 @@ class SppController extends Controller
     // STORE
     // ===============================
     public function store(Request $request)
-    {
-        $request->validate([
-            'tahun'   => 'required|digits:4',
-            'nominal' => 'required|numeric|min:0',
-            'bantuan' => 'required|string' 
-        ]);
+{
+    $request->validate([
+        'tahun'   => 'required|digits:4',
+        'nominal' => 'required|numeric|min:0',
+        'bantuan' => 'required|string|max:30',
+    ], [
+        'tahun.required'   => 'Tahun wajib diisi',
+        'tahun.digits'     => 'Tahun harus 4 angka',
+        'nominal.required' => 'Nominal wajib diisi',
+        'bantuan.required' => 'Kategori bantuan wajib dipilih',
+    ]);
 
-        Spp::create([
-            'tahun'   => $request->tahun,
-            'nominal' => $request->nominal,
-            'bantuan' => $request->bantuan ?? 0,
-        ]);
+    // ❌ CEK DUPLIKAT TAHUN + NOMINAL + BANTUAN
+    $cek = Spp::where('tahun', $request->tahun)
+            ->where('nominal', $request->nominal)
+            ->where('bantuan', $request->bantuan)
+            ->exists();
 
-        return redirect('/admin/spp')
-            ->with('success', '✅ Data SPP berhasil ditambahkan');
+    if ($cek) {
+        return back()
+            ->withInput()
+            ->withErrors([
+    'nominal' => 'Nominal dengan kategori bantuan ini sudah ada pada tahun tersebut'
+]);
+
     }
+
+    Spp::create([
+        'tahun'   => $request->tahun,
+        'nominal' => $request->nominal,
+        'bantuan' => $request->bantuan,
+    ]);
+
+    return redirect('/admin/spp')
+        ->with('success', '✅ Data SPP berhasil ditambahkan');
+}
 
     // ===============================
     // EDIT
@@ -73,18 +93,33 @@ class SppController extends Controller
         $request->validate([
             'tahun'   => 'required|digits:4',
             'nominal' => 'required|numeric|min:0',
-            'bantuan' => 'required|string'
+            'bantuan' => 'required|string|max:30',
         ]);
 
         $spp = Spp::findOrFail($id);
+
+$cek = Spp::where('tahun', $request->tahun)
+        ->where('nominal', $request->nominal)
+        ->where('bantuan', $request->bantuan)
+        ->where('id_spp', '!=', $id)
+        ->exists();
+
+if ($cek) {
+    return back()
+        ->withInput()
+        ->withErrors([
+            'nominal' => 'Nominal dengan kategori bantuan ini sudah ada pada tahun tersebut'
+        ]);
+}
+
         $spp->update([
             'tahun'   => $request->tahun,
             'nominal' => $request->nominal,
-            'bantuan' => $request->bantuan ?? 0,
+            'bantuan' => $request->bantuan,
         ]);
 
         return redirect('/admin/spp')
-            ->with('success', '✏️ Data SPP berhasil diupdate');
+            ->with('success', '✏️ Data SPP berhasil diperbarui');
     }
 
     // ===============================

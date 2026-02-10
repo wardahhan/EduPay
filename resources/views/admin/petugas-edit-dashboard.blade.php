@@ -11,7 +11,7 @@
 
 @extends('layouts.admin')
 
-@section('title', 'Kelola Petugas')
+@section('title', 'Edit Petugas | EduPay')
 
 @section('content')
 
@@ -22,7 +22,7 @@
         <!-- HEADER -->
         <div class="mb-6 flex items-center justify-between">
             <div>
-                <h1 class="text-2xl font-bold text-red-700 flex items-center gap-2">
+                <h1 class="text-2xl font-bold text-red-700">
                     Edit Petugas
                 </h1>
                 <p class="text-sm text-gray-500">
@@ -54,8 +54,16 @@
                            name="nama_petugas"
                            value="{{ old('nama_petugas', $petugas->nama_petugas) }}"
                            class="w-full px-4 py-3 rounded-xl border
-                                  focus:outline-none focus:ring-2 focus:ring-red-300"
-                           required>
+                                  focus:outline-none focus:ring-2
+                                  {{ $errors->has('nama_petugas')
+                                      ? 'border-red-500 focus:ring-red-200'
+                                      : 'focus:ring-red-300' }}">
+
+                    @error('nama_petugas')
+                        <p class="text-xs text-red-600 mt-1 ml-1">
+                            Nama petugas wajib diisi
+                        </p>
+                    @enderror
                 </div>
 
                 <!-- NO TELP -->
@@ -67,8 +75,18 @@
                     <input type="text"
                            name="no_telp"
                            value="{{ old('no_telp', $petugas->no_telp) }}"
+                           placeholder="08xxxxxxxxxx"
                            class="w-full px-4 py-3 rounded-xl border
-                                  focus:outline-none focus:ring-2 focus:ring-red-300">
+                                  focus:outline-none focus:ring-2
+                                  {{ $errors->has('no_telp')
+                                      ? 'border-red-500 focus:ring-red-200'
+                                      : 'focus:ring-red-300' }}">
+
+                    @error('no_telp')
+                        <p class="text-xs text-red-600 mt-1 ml-1">
+                            Nomor telepon harus 10–12 digit angka
+                        </p>
+                    @enderror
                 </div>
 
                 <!-- USERNAME -->
@@ -81,11 +99,19 @@
                            name="username"
                            value="{{ old('username', $petugas->user->username) }}"
                            class="w-full px-4 py-3 rounded-xl border
-                                  focus:outline-none focus:ring-2 focus:ring-red-300"
-                           required>
+                                  focus:outline-none focus:ring-2
+                                  {{ $errors->has('username')
+                                      ? 'border-red-500 focus:ring-red-200'
+                                      : 'focus:ring-red-300' }}">
+
+                    @error('username')
+                        <p class="text-xs text-red-600 mt-1 ml-1">
+                            Username sudah digunakan
+                        </p>
+                    @enderror
                 </div>
 
-                <!-- PASSWORD & LEVEL -->
+                <!-- LEVEL & PASSWORD -->
                 <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
 
                     <!-- LEVEL -->
@@ -96,17 +122,26 @@
 
                         <select name="level"
                                 class="w-full px-4 py-3 rounded-xl border
-                                       focus:outline-none focus:ring-2 focus:ring-red-300"
-                                required>
+                                       focus:outline-none focus:ring-2
+                                       {{ $errors->has('level')
+                                           ? 'border-red-500 focus:ring-red-200'
+                                           : 'focus:ring-red-300' }}">
+                            <option value="">-- Pilih Level --</option>
                             <option value="petugas"
-                                {{ $petugas->user->level == 'petugas' ? 'selected' : '' }}>
+                                {{ old('level', $petugas->user->role) == 'petugas' ? 'selected' : '' }}>
                                 Petugas
                             </option>
                             <option value="admin"
-                                {{ $petugas->user->level == 'admin' ? 'selected' : '' }}>
+                                {{ old('level', $petugas->user->role) == 'admin' ? 'selected' : '' }}>
                                 Admin
                             </option>
                         </select>
+
+                        @error('level')
+                            <p class="text-xs text-red-600 mt-1 ml-1">
+                                Level wajib dipilih
+                            </p>
+                        @enderror
                     </div>
 
                     <!-- PASSWORD -->
@@ -119,7 +154,16 @@
                                name="password"
                                placeholder="Kosongkan jika tidak diubah"
                                class="w-full px-4 py-3 rounded-xl border
-                                      focus:outline-none focus:ring-2 focus:ring-red-300">
+                                      focus:outline-none focus:ring-2
+                                      {{ $errors->has('password')
+                                          ? 'border-red-500 focus:ring-red-200'
+                                          : 'focus:ring-red-300' }}">
+
+                        @error('password')
+                            <p class="text-xs text-red-600 mt-1 ml-1">
+                                Password minimal 6 karakter
+                            </p>
+                        @enderror
                     </div>
 
                 </div>
@@ -127,14 +171,13 @@
                 <!-- ACTION -->
                 <div class="flex justify-end gap-3">
                     <a href="/admin/petugas"
-                       class="px-5 py-2 rounded-lg bg-gray-300
-                              hover:bg-gray-400 font-medium">
+                       class="px-5 py-2 rounded-lg bg-gray-300 hover:bg-gray-400 font-medium">
                         Batal
                     </a>
 
                     <button type="submit"
-                            class="px-6 py-2 rounded-lg bg-red-600
-                                   hover:bg-red-700 text-white font-semibold shadow">
+                            class="px-6 py-2 rounded-lg bg-red-600 hover:bg-red-700
+                                   text-white font-semibold shadow">
                         Update Data
                     </button>
                 </div>
@@ -147,10 +190,10 @@
         </p>
 
     </div>
-
 </div>
 
 @endsection
+
 
 </body>
 </html>
